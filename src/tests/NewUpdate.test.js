@@ -22,6 +22,10 @@ describe('testes da tela NewUpdate', () => {
 
   it('Existe form em NewUpdate?', () => {
     expect(screen.getByTestId('myform')).toBeInTheDocument();
-  })
+  });
+
+  it('Existe input1 em NewUpdate?', () => {
+    expect(screen.getByTestId('input1')).toBeInTheDocument();
+  });
 
 });
