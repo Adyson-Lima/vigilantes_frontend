@@ -1,8 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-// import api from '../../services/api';
+import api from '../../services/api';
 
 export default function Vigilantes(){
+
+  const [my_vigilantes, setVigilantes] = useState([]);
+  const navigate = useNavigate();
+
+  // read, busca todos os elementos na api
+  useEffect(() => {
+    api.get('api/v1/vigilantes',{})
+    .then(response => {setVigilantes(response.data)})
+  }, []);
 
   return(
 
@@ -18,17 +27,18 @@ export default function Vigilantes(){
         <table data-testid="mytable" className="table table-hover">
           <thead>
             <tr>
-              <th scope="col">##</th>
-              <th scope="col">##</th>
-              <th scope="col">##</th>
-              <th scope="col">##</th>
+              <th scope="col">ID</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Veiculo</th>
+              <th scope="col">Ações</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row"></th>
-                <td></td>
-                <td></td>
+            {my_vigilantes.map(vigilante => (
+              <tr key={vigilante.id}>
+                <th scope="row">{vigilante.id}</th>
+                <td>{vigilante.name}</td>
+                <td>{vigilante.vehicle}</td>
                 <td>
 
                   <button data-testid="mybtn1" type="button"
@@ -38,7 +48,9 @@ export default function Vigilantes(){
                   className="btn btn-outline-danger" style={{margin: '2px'}}>Excluir</button>
 
                 </td>
-            </tr>
+              </tr>
+            ))}
+            
           </tbody>
         </table>
 
